@@ -1,8 +1,13 @@
 /*
-Confusing points
-Why i < n-1? Because once n-1 elements are sorted, the last one is automatically in place.
-Why j = i + 1? Because we search for the minimum element in the remaining unsorted portion of the array.
-Why swap arr[min], arr[i]? To move the found minimum element to its correct position in the sorted sequence.
+Complexity
+Best Case: O(n^2) - Always scans the remaining array.
+Average Case: O(n^2)
+Worst Case: O(n^2)
+Space Complexity: O(1)
+
+Use-cases
+- Memory-constrained systems: When memory write operations are expensive (it minimizes the number of swaps).
+- Small datasets where simplicity is preferred.
 */
 
 package sort

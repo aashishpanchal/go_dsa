@@ -1,8 +1,13 @@
 /*
-Confusing points
-Why i < n-1? Because after n-1 passes, the last element is guaranteed to be in its correct position.
-Why j < n-i-1? Because in each pass i, the largest i elements are already bubbled to the end, so we don't need to check them again.
-Why 'swapped' flag? It's an optimization to stop early if the array is already sorted.
+Complexity
+Best Case: O(n) - When the array is already sorted (thanks to 'swapped' flag).
+Average Case: O(n^2)
+Worst Case: O(n^2)
+Space Complexity: O(1)
+
+Use-cases
+- Educational purposes to understand the concept of sorting.
+- Not recommended for production due to poor performance.
 */
 
 package sort

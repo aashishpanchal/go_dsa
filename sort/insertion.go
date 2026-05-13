@@ -1,8 +1,14 @@
 /*
-Confusing points
-Why i=1? Because the first element is already considered sorted.
-Why j=i-1? Because we compare the 'key' with elements to its left.
-Why arr[j+1]=key? Because after the loop ends, j is either -1 or points to an element smaller than or equal to the key.
+Complexity
+Best Case: O(n) - When the array is already sorted.
+Average Case: O(n^2)
+Worst Case: O(n^2)
+Space Complexity: O(1)
+
+Use-cases
+- Nearly sorted data: Very efficient as it runs in O(n) time.
+- Small datasets: Often faster than more complex algorithms for small arrays (n < 20).
+- Online sorting: Can sort data as it is being received.
 */
 
 package sort
