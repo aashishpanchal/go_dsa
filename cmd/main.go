@@ -10,7 +10,7 @@ func main() {
 	fmt.Println("Original array\t", arr)
 	// arr = sorting.Bubble(arr)
 	// arr = sort.Selection(arr)
-	arr = sort.Merge(arr)
-	// arr = sort.Quick(arr)
+	// arr = sort.Merge(arr)
+	arr = sort.Quick(arr)
 	fmt.Println("Sorted array\t", arr)
 }

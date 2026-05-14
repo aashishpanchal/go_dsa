@@ -2,13 +2,7 @@
 Complexity
 Best Case: O(n log n)
 Average Case: O(n log n)
-Worst Case: O(n^2) - Occurs when the pivot is consistently the smallest or largest element.
-Space Complexity: O(n) - In this simple implementation due to new slice allocations.
-
-Use-cases
-- General purpose sorting: Usually faster in-practice than Merge Sort.
-- When space is a concern (in-place versions use O(log n) space).
-- Systems where average-case performance is the primary metric.
+Worst Case: O(n^2)
 */
 
 package sort
@@ -17,28 +11,38 @@ import "go_dsa/consts"
 
 // Quick sort algorithm.
 func Quick[T consts.Ordered](arr []T) []T {
-	if len(arr) < 2 {
-		return arr
+	n := len(arr)
+	quickSort(arr, 0, n-1)
+	return arr
+}
+
+// merge sort helper
+func quickSort[T consts.Ordered](arr []T, start, end int) {
+	if start >= end {
+		return
 	}
 
-	pivot := arr[len(arr)/2]
+	pivIdx := partition(arr, start, end)
 
-	left := make([]T, 0)
-	mid := make([]T, 0)
-	right := make([]T, 0)
+	quickSort(arr, start, pivIdx-1) // right array
+	quickSort(arr, pivIdx+1, end)   // left array
+}
 
-	for _, x := range arr {
-		if x < pivot {
-			left = append(left, x)
-		} else if x == pivot {
-			mid = append(mid, x)
-		} else {
-			right = append(right, x)
+func partition[T consts.Ordered](arr []T, start, end int) int {
+	idx, pivot := start-1, arr[end]
+
+	for j := start; j < end; j++ {
+		if arr[j] <= pivot {
+			idx++
+			// Swap
+			arr[j], arr[idx] = arr[idx], arr[j]
 		}
 	}
 
-	left = Quick(left)
-	right = Quick(right)
+	idx++
 
-	return append(append(left, mid...), right...)
+	// Swap
+	arr[end], arr[idx] = arr[idx], arr[end]
+
+	return idx
 }
