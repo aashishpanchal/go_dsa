@@ -3,12 +3,6 @@ Complexity
 Best Case: O(n log n)
 Average Case: O(n log n)
 Worst Case: O(n log n)
-Space Complexity: O(n) - Due to temporary sub-arrays.
-
-Use-cases
-- Large datasets: Guaranteed O(n log n) performance.
-- Stable sorting: When you need to maintain the relative order of equal elements.
-- External sorting: Sorting data that is too large to fit into RAM.
 */
 
 package sort
@@ -17,36 +11,48 @@ import "go_dsa/consts"
 
 // Merge sort algorithm
 func Merge[T consts.Ordered](arr []T) []T {
-	if len(arr) <= 1 {
-		return arr
-	}
-
-	mid := len(arr) / 2
-	left := Merge(arr[:mid])
-	right := Merge(arr[mid:])
-
-	return merge(left, right)
+	n := len(arr)
+	mergeSort(arr, 0, n-1)
+	return arr
 }
 
-// merge helper function to combine two sorted arrays
-func merge[T consts.Ordered](left, right []T) []T {
-	result := make([]T, 0, len(left)+len(right))
-	i, j := 0, 0
+// merge sort helper
+func mergeSort[T consts.Ordered](arr []T, start, end int) {
+	if start >= end {
+		return
+	}
+
+	mid := start + (end-start)/2
+
+	mergeSort(arr, start, mid) // left half
+	mergeSort(arr, mid+1, end) // right half
+
+	merge(arr, start, mid, end)
+}
+
+// merge helper
+func merge[T consts.Ordered](arr []T, start, mid, end int) {
+	// temp array
+	temp := make([]T, 0, end-start+1)
+	i, j := start, mid+1
 
 	// mere sub-arrays with sorted.
-	for i < len(left) && j < len(right) {
-		if left[i] < right[j] {
-			result = append(result, left[i])
+	for i <= mid && j <= end {
+		if arr[i] < arr[j] {
+			temp = append(temp, arr[i])
 			i++
 		} else {
-			result = append(result, right[j])
+			temp = append(temp, arr[j])
 			j++
 		}
 	}
 
 	// append remaining elements
-	result = append(result, left[i:]...)
-	result = append(result, right[j:]...)
+	temp = append(temp, arr[i:mid+1]...)
+	temp = append(temp, arr[j:end+1]...)
 
-	return result
+	// copy back
+	for idx, v := range temp {
+		arr[idx+start] = v
+	}
 }
