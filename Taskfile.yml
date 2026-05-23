@@ -50,3 +50,18 @@ tasks:
     desc: Run only search algorithm tests
     cmds:
       - gotestsum --format testname ./search/...
+
+  # Git Hooks
+  setup:hooks:
+    desc: Setup native git hooks for pre-commit testing
+    cmds:
+      - mkdir -p .git/hooks
+      - |
+        cat <<EOF > .git/hooks/pre-commit
+        #!/bin/sh
+        echo "🔍 Running pre-commit tests..."
+        task code:test
+        EOF
+      - chmod +x .git/hooks/pre-commit
+    status:
+      - test -f .git/hooks/pre-commit
