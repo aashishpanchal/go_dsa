@@ -1,13 +1,52 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 
-version: '3'
+version: "3"
 
-vars:
-  GREETING: Hello, world!
+env:
+  GO111MODULE: auto
 
 tasks:
   default:
-    desc: Print a greeting message
+    desc: List all available tasks
     cmds:
-      - echo "{{.GREETING}}"
+      - task --list
     silent: true
+
+  # Code Quality
+  code:test:
+    desc: Run all tests in the project with gotestsum
+    cmds:
+      - gotestsum --format testname ./...
+
+  code:fmt:
+    desc: Format all go files
+    cmds:
+      - go fmt ./...
+
+  code:lint:
+    desc: Run golangci-lint (if installed)
+    cmds:
+      - golangci-lint run
+    ignore_error: true
+
+  # Dependencies
+  mod:deps:
+    desc: Download and cache all dependencies
+    cmds:
+      - go mod download
+
+  mod:tidy:
+    desc: Remove unused dependencies and clean go.mod
+    cmds:
+      - go mod tidy
+
+  # Specific Tests
+  test:sort:
+    desc: Run only sorting algorithm tests
+    cmds:
+      - gotestsum --format testname ./sort/...
+
+  test:search:
+    desc: Run only search algorithm tests
+    cmds:
+      - gotestsum --format testname ./search/...

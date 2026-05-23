@@ -4,10 +4,6 @@ Best Case: O(n) - When the array is already sorted (thanks to 'swapped' flag).
 Average Case: O(n^2)
 Worst Case: O(n^2)
 Space Complexity: O(1)
-
-Use-cases
-- Educational purposes to understand the concept of sorting.
-- Not recommended for production due to poor performance.
 */
 
 package sort
