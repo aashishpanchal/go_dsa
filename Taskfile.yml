@@ -51,6 +51,11 @@ tasks:
     cmds:
       - gotestsum --format testname ./search/...
 
+  test:basic:
+    desc: Run only basic algorithm tests
+    cmds:
+      - gotestsum --format testname ./basic/...
+
   test:linkedlist:
     desc: Run only linked-list algorithm tests
     cmds:
